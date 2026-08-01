@@ -1,0 +1,25 @@
+{
+  "name": "gitflow-tarea",
+  "version": "1.0.0",
+  "description": "Esta tarea se base en demostrar el uso correcto y bien planteado de git flow usando GitHub para mostrarlo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oswaldhz/gitflow-tarea.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/oswaldhz/gitflow-tarea/issues"
+  },
+  "homepage": "https://github.com/oswaldhz/gitflow-tarea#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "sqlite3": "^6.0.1"
+  }
+}
