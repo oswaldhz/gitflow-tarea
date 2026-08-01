@@ -77,4 +77,50 @@ const obtenerProducto = (req, res) => {
   });
 };
 
-module.exports = { crearProducto, listarProductos, obtenerProducto };
+// Actualizar un producto
+const actualizarProducto = (req, res) => {
+  const { id } = req.params;
+  const { nombre, descripcion, precio, stock, categoria } = req.body;
+
+  db.get("SELECT * FROM productos WHERE id = ?", [id], (err, existente) => {
+    if (err) {
+      return res
+        .status(500)
+        .json({ error: "Error al buscar el producto", detalle: err.message });
+    }
+    if (!existente) {
+      return res.status(404).json({ error: "Producto no encontrado" });
+    }
+
+    const sql = `
+      UPDATE productos
+      SET nombre = ?, descripcion = ?, precio = ?, stock = ?, categoria = ?
+      WHERE id = ?
+    `;
+    const valores = [
+      nombre ?? existente.nombre,
+      descripcion ?? existente.descripcion,
+      precio ?? existente.precio,
+      stock ?? existente.stock,
+      categoria ?? existente.categoria,
+      id,
+    ];
+
+    db.run(sql, valores, function (err) {
+      if (err) {
+        return res.status(500).json({
+          error: "Error al actualizar el producto",
+          detalle: err.message,
+        });
+      }
+      res.json({ mensaje: "Producto actualizado correctamente" });
+    });
+  });
+};
+
+module.exports = {
+  crearProducto,
+  listarProductos,
+  obtenerProducto,
+  actualizarProducto,
+};
