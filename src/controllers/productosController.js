@@ -1,4 +1,5 @@
 const { db } = require("../db/database");
+const { formatearFecha } = require("../utils/formatDate");
 
 // Crear un producto
 const crearProducto = (req, res) => {
@@ -56,7 +57,11 @@ const listarProductos = (req, res) => {
         .status(500)
         .json({ error: "Error al listar productos", detalle: err.message });
     }
-    res.json(filas);
+    const productosFormateados = filas.map((p) => ({
+      ...p,
+      fecha_creacion: formatearFecha(p.fecha_creacion),
+    }));
+    res.json(productosFormateados);
   });
 };
 
@@ -73,7 +78,7 @@ const obtenerProducto = (req, res) => {
     if (!fila) {
       return res.status(404).json({ error: "Producto no encontrado" });
     }
-    res.json(fila);
+    res.json({ ...fila, fecha_creacion: formatearFecha(fila.fecha_creacion) });
   });
 };
 
