@@ -123,9 +123,27 @@ const actualizarProducto = (req, res) => {
   });
 };
 
+// Eliminar un producto
+const eliminarProducto = (req, res) => {
+  const { id } = req.params;
+
+  db.run("DELETE FROM productos WHERE id = ?", [id], function (err) {
+    if (err) {
+      return res
+        .status(500)
+        .json({ error: "Error al eliminar el producto", detalle: err.message });
+    }
+    if (this.changes === 0) {
+      return res.status(404).json({ error: "Producto no encontrado" });
+    }
+    res.json({ mensaje: "Producto eliminado correctamente" });
+  });
+};
+
 module.exports = {
   crearProducto,
   listarProductos,
   obtenerProducto,
   actualizarProducto,
+  eliminarProducto,
 };
