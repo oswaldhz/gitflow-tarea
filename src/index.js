@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const { inicializarBD } = require("./db/database");
 const productosRoutes = require("./routes/productos");
 
@@ -9,9 +10,7 @@ app.use(express.json());
 
 inicializarBD();
 
-app.get("/", (req, res) => {
-  res.json({ mensaje: "API de Productos funcionando correctamente" });
-});
+app.use(express.static(path.join(__dirname, "..", "public")));
 
 app.use("/api/productos", productosRoutes);
 
