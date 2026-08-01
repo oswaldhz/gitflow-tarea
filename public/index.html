@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manifiesto de Inventario — Productos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <span class="brand-mark">▣</span>
+          <div class="brand-text">
+            <h1>Manifiesto de Inventario</h1>
+            <p>Registro y control de existencias</p>
+          </div>
+        </div>
+        <button id="btn-nuevo" class="btn btn-primary">
+          + Registrar producto
+        </button>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="toolbar">
+        <div class="filtro-categorias" id="filtro-categorias">
+          <button class="chip is-active" data-categoria="">Todas</button>
+        </div>
+        <div class="conteo" id="conteo-resultados">0 artículos</div>
+      </section>
+
+      <section id="estado-vacio" class="estado-vacio oculto">
+        <p class="estado-vacio-titulo">El estante está vacío.</p>
+        <p class="estado-vacio-texto">
+          Registra tu primer producto o carga un inventario de muestra para ver
+          el manifiesto en acción.
+        </p>
+        <div class="estado-vacio-acciones">
+          <button id="btn-nuevo-vacio" class="btn btn-primary">
+            Registrar producto
+          </button>
+          <button id="btn-seed" class="btn btn-secundario">
+            Cargar inventario de muestra
+          </button>
+        </div>
+      </section>
+
+      <section id="grid-productos" class="grid-productos"></section>
+    </main>
+
+    <!-- Panel lateral: formulario de alta / edición -->
+    <div id="overlay" class="overlay oculto"></div>
+    <aside
+      id="panel-formulario"
+      class="panel-formulario oculto"
+      aria-label="Formulario de producto"
+    >
+      <div class="panel-header">
+        <h2 id="panel-titulo">Nueva ficha de producto</h2>
+        <button id="btn-cerrar-panel" class="btn-cerrar" aria-label="Cerrar">
+          ✕
+        </button>
+      </div>
+
+      <form id="form-producto" class="form-producto">
+        <input type="hidden" id="producto-id" />
+
+        <label class="campo">
+          <span>Nombre</span>
+          <input
+            type="text"
+            id="campo-nombre"
+            required
+            placeholder="Ej. Cafetera de goteo"
+          />
+        </label>
+
+        <label class="campo">
+          <span>Descripción</span>
+          <textarea
+            id="campo-descripcion"
+            rows="3"
+            placeholder="Detalles breves del artículo"
+          ></textarea>
+        </label>
+
+        <div class="campo-fila">
+          <label class="campo">
+            <span>Precio (USD)</span>
+            <input
+              type="number"
+              id="campo-precio"
+              step="0.01"
+              min="0"
+              required
+              placeholder="0.00"
+            />
+          </label>
+          <label class="campo">
+            <span>Existencias</span>
+            <input
+              type="number"
+              id="campo-stock"
+              min="0"
+              required
+              placeholder="0"
+            />
+          </label>
+        </div>
+
+        <label class="campo">
+          <span>Categoría</span>
+          <input
+            type="text"
+            id="campo-categoria"
+            list="lista-categorias"
+            placeholder="Ej. electronica"
+          />
+          <datalist id="lista-categorias"></datalist>
+        </label>
+
+        <p id="form-error" class="form-error oculto"></p>
+
+        <div class="panel-acciones">
+          <button type="button" id="btn-cancelar" class="btn btn-secundario">
+            Cancelar
+          </button>
+          <button type="submit" id="btn-guardar" class="btn btn-primary">
+            Guardar ficha
+          </button>
+        </div>
+      </form>
+    </aside>
+
+    <div id="toast" class="toast oculto"></div>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
